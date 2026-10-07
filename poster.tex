@@ -128,37 +128,67 @@ Movement onset provides a precise event marker. We use event-locked MEG response
 \begin{block}{Finite-relaxation transport on a graph}
 \justifying
 
-Standard graph diffusion assumes that flux responds instantaneously to a gradient. Instead, let edge fluxes relax over a finite timescale:
+Let $\mathbf{B}_1$ be the oriented incidence matrix. We separate conservation from the constitutive law through
+\[
+\operatorname{div}=-\mathbf{B}_1,
+\qquad
+\operatorname{grad}=\mathbf{B}_1^{\mathsf T},
+\qquad
+\mathbf{L}_0=-\operatorname{div}\operatorname{grad}
+=\mathbf{B}_1\mathbf{B}_1^{\mathsf T}.
+\]
+
+The node state $\mathbf{x}$ is conserved through the edge flux $\mathbf{J}$,
 \begin{bigequation}
 \dot{\mathbf{x}}+\operatorname{div}\mathbf{J}=0,
-\qquad
+\end{bigequation}
+while the flux relaxes toward the instantaneous graph gradient,
+\begin{bigequation}
 \tau\dot{\mathbf{J}}+\mathbf{J}
 =-\operatorname{grad}\mathbf{x}.
 \end{bigequation}
 
-Eliminating the edge flux gives the graph telegrapher equation
+Eliminating $\mathbf{J}$ gives
 \begin{bigequation}
 \tcbhighmath[colframe=blockshade,colback=blockshade,boxrule=0pt,arc=2mm]{
-\tau\ddot{\mathbf{x}}+\dot{\mathbf{x}}+\mathbf{L}\mathbf{x}=0
+\tau\ddot{\mathbf{x}}+\dot{\mathbf{x}}+\mathbf{L}_0\mathbf{x}=0
 }
 \end{bigequation}
 
-\textbf{The temporal bottleneck is placed in transport along pathways, not in delayed node states.}
+\textbf{Finite relaxation is placed on transport along edges, rather than on delayed node states.}
 \end{block}
 
 \begin{block}{Topology sets the dynamical regime}
 \justifying
 
-For a Laplacian mode $\mathbf{L}\mathbf{v}_k=\lambda_k\mathbf{v}_k$,
+Diagonalizing the Laplacian,
+\[
+\mathbf{L}_0\mathbf{v}_k=\lambda_k\mathbf{v}_k,
+\qquad
+\mathbf{x}(t)=\sum_k z_k(t)\mathbf{v}_k,
+\]
+reduces the network dynamics to independent modes,
 \[
 \tau\ddot z_k+\dot z_k+\lambda_k z_k=0.
 \]
-Mode $k$ becomes underdamped when $4\tau\lambda_k>1$. The first nontrivial transition is therefore
+
+The modal exponents are
+\begin{bigequation}
+r_{\pm}
+=
+\frac{-1\pm\sqrt{1-4\tau\lambda_k}}{2\tau}.
+\end{bigequation}
+
+Hence $4\tau\lambda_k<1$ gives overdamped relaxation, while $4\tau\lambda_k>1$ gives oscillations with
+\[
+\omega_k=\frac{\sqrt{4\tau\lambda_k-1}}{2\tau}.
+\]
+The first nontrivial mode crosses at
 \begin{bigequation}
 \tau_c=\frac{1}{4\lambda_2}.
 \end{bigequation}
 
-\figureplaceholder{14.5cm}{FIG. 2 --- overdamped $\rightarrow$ underdamped\\[1mm]
+\figureplaceholder{12.2cm}{FIG. 2 --- overdamped $\rightarrow$ underdamped\\[1mm]
 \small redesigned monotone vs oscillatory network relaxation}
 \end{block}
 
@@ -177,16 +207,31 @@ Mode $k$ becomes underdamped when $4\tau\lambda_k>1$. The first nontrivial trans
 \begin{block}{Topology or geometry?}
 \justifying
 
-Structural connectivity is strongly constrained by spatial embedding. We therefore compare the empirical structural connectome against two spatial graph controls under the \emph{same} dynamical model:
+Structural connectivity is strongly constrained by spatial embedding. We therefore compare three Laplacians under the \emph{same} dynamical model:
 \[
-\text{Structural}
+\mathbf{L}_{\rm Struc},
 \qquad
-\text{EDR}
+\mathbf{L}_{\rm EDR},
 \qquad
-\text{Geometric}.
+\mathbf{L}_{\rm Geo}.
 \]
 
-\figureplaceholder{22.0cm}{FIG. 6 --- network architectures and graph modes\\[1mm]
+For each candidate network,
+\[
+\mathbf{L}_0\mathbf{V}=\mathbf{V}\boldsymbol{\Lambda},
+\qquad
+\mathbf{x}'_{\rm ROI}(t)=\mathbf{V}\mathbf{z}(t).
+\]
+After mapping predictions through the ROI resolution operator,
+\[
+\hat{\mathbf{x}}_{\rm ROI}(t)
+=
+\mathbf{R}_{\rm ROI}\mathbf{V}\,
+\hat{\mathbf{z}}(t;\tau),
+\]
+a single global $\tau$ is fitted while each mode follows the analytic telegrapher solution.
+
+\figureplaceholder{19.0cm}{FIG. 6 --- network architectures and graph modes\\[1mm]
 \small redesigned structural / EDR / geometric comparison}
 \end{block}
 
