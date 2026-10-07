@@ -5,7 +5,6 @@
 % ====================
 
 \usepackage[T1]{fontenc}
-\usepackage{lmodern}
 \usepackage[size=custom,width=84.1,height=118.9,scale=1.0]{beamerposter}
 \usetheme{gemini}
 \usecolortheme{uchicago}
@@ -15,7 +14,6 @@
 \usepackage{pgfplots}
 \pgfplotsset{compat=1.17}
 
-\usepackage[cm]{sfmath}
 \usepackage[font=small,labelfont=bf,
    justification=justified,
    format=plain]{caption}
@@ -24,10 +22,12 @@
 \tcbset{highlight math style={enhanced,
   colframe=blockshade,colback=blockshade,arc=2mm,boxrule=0pt}}
 
+\usepackage{fontspec}
 \usepackage{unicode-math}
 \defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX}
-\setmainfont{TeX Gyre Heros}[Scale=0.8]
-\setmathfont{Fira Math}
+\setmainfont{Libertinus Sans}
+\setsansfont{Libertinus Sans}
+\setmathfont{Libertinus Math}
 
 \usepackage{eucal}
 \usepackage{amsmath}
@@ -70,9 +70,9 @@
 
 \title{Slow brain transients reveal connectome topology}
 
-\author{Llu\'is Torres-Hugas$^{1}$ \and Luiz Pessoa$^{2}$ \and Alex Arenas$^{1,3}$}
+\author{Llu\'is Torres-Hugas$^{1}$ \and Luiz Pessoa$^{2}$ \and Alex Arenas$^{1}$}
 
-\institute[shortinst]{$^{1}$Universitat Rovira i Virgili \qquad $^{2}$University of Maryland, College Park \qquad $^{3}$Complexity Science Hub Vienna}
+\institute[shortinst]{$^{1}$Universitat Rovira i Virgili \qquad $^{2}$University of Maryland, College Park}
 
 \footercontent{FisEs'26, Tarragona, 14--16 October 2026 \hfill lluis.torres@urv.cat}
 
