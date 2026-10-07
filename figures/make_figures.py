@@ -1,10 +1,18 @@
 from pathlib import Path
 
+from PIL import Image
+
 import matplotlib.pyplot as plt
 import numpy as np
 from scipy.integrate import cumulative_trapezoid, solve_ivp
 
 OUT = Path(__file__).resolve().parent
+
+# LuaLaTeX does not reliably read WebP, so generate a PNG copy of the URV mark.
+urv_webp = OUT.parent / "logos" / "urv.webp"
+urv_png = OUT.parent / "logos" / "urv.png"
+if urv_webp.exists():
+    Image.open(urv_webp).save(urv_png)
 
 RHO_STAR = 0.5
 THETA_A = 0.0
@@ -14,11 +22,11 @@ U_B = 1.0 / 6.0
 
 plt.rcParams.update(
     {
-        "font.size": 14,
-        "axes.labelsize": 17,
-        "xtick.labelsize": 13,
-        "ytick.labelsize": 13,
-        "legend.fontsize": 11,
+        "font.size": 12,
+        "axes.labelsize": 14,
+        "xtick.labelsize": 11,
+        "ytick.labelsize": 11,
+        "legend.fontsize": 10,
         "figure.dpi": 160,
     }
 )
@@ -138,7 +146,7 @@ ax.contourf(
     Y,
     anti_damping.astype(float),
     levels=[0.5, 1.5],
-    colors=["#dcecf7"],
+    colors=["#E8EFE5"],
     alpha=0.9,
 )
 ax.streamplot(
@@ -146,8 +154,8 @@ ax.streamplot(
     y,
     DTHETA,
     DY,
-    density=1.15,
-    color="0.80",
+    density=0.70,
+    color="0.88",
     linewidth=0.9,
     arrowsize=0.9,
 )
@@ -159,7 +167,7 @@ ax.plot(theta_ref, -y_ref, "k--", linewidth=2.4)
 
 for sign in (1.0, -1.0):
     branch = manifold_branch(rho, stable=True, sign=sign)
-    ax.plot(branch[0], branch[1], linewidth=3.0, color="#292a90")
+    ax.plot(branch[0], branch[1], linewidth=3.0, color="#5C7958")
 
 ax.plot(THETA_A, 0.0, "ko", markersize=8)
 ax.plot(
@@ -255,14 +263,14 @@ fig, ax = plt.subplots(figsize=(5.5, 3.7))
 ax.plot(
     rho_values,
     minimum_exact,
-    color="#292a90",
+    color="#5C7958",
     linewidth=2.5,
     label=r"$D_{\min}$",
 )
 ax.plot(
     rho_values,
     minimum_first_order,
-    color="0.20",
+    color="#A28466",
     linestyle="--",
     linewidth=2.0,
     label=r"$\Delta_{\min}$",
@@ -366,7 +374,7 @@ for left, right in [(-theta_turn, 0.0), (0.0, theta_turn)]:
 
 for sign in (1.0, -1.0):
     branch = fhn_branch(sign, stable=True)
-    ax.plot(branch[0], branch[1], color="#292a90", linewidth=2.7)
+    ax.plot(branch[0], branch[1], color="#5C7958", linewidth=2.7)
 
 ax.plot([-theta_a, theta_a], [0.0, 0.0], "ko", markersize=7)
 ax.plot(
