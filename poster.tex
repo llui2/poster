@@ -39,6 +39,20 @@
 \end{equation*}
 }
 
+\newcommand{\figureplaceholder}[2]{%
+\begin{tcolorbox}[
+  colback=blockshade,
+  colframe=blockshade,
+  boxrule=0pt,
+  arc=2mm,
+  height=#1,
+  valign=center,
+  halign=center
+]
+{\large\bfseries #2}
+\end{tcolorbox}
+}
+
 % ====================
 % Lengths -- same proportions as the previous posters
 % ====================
@@ -98,75 +112,54 @@
 
 \begin{alertblock}{HIGHLIGHT}
 \centering
-\textbf{Low-frequency event-locked trajectories carry a measurable signature of structural brain topology.}
+\textbf{Slow post-event transients reveal structural connectome topology beyond spatial geometry.}
 \end{alertblock}
 
-\begin{block}{Finite response changes the recovery dynamics}
+\begin{block}{From an event to a network trajectory}
 \justifying
 
-A recovery coordinate $\theta$ evolves on a landscape $U(\theta)$, while a responding state $x$ relaxes only at finite rate,
-\begin{bigequation}
-\dot\theta=\eta[g(\theta)-x],
-\qquad
-\dot x=\gamma(\theta-x),
-\qquad
-\rho=\frac{\eta}{\gamma}.
-\end{bigequation}
+Movement onset provides a precise event marker. We use event-locked MEG responses to follow how cortical activity redistributes after the perturbation, rather than comparing only static spatial patterns.
 
-Eliminating $x$ gives
-\begin{bigequation}
-\ddot\theta+
-[1-\rho+\rho U''(\theta)]\dot\theta
-+\rho U'(\theta)=0.
-\end{bigequation}
-
-\begin{center}
-\includegraphics[width=0.72\linewidth]{figures/landscape.pdf}
-\end{center}
-
-\textbf{Finite response turns gradient recovery into an inertial system with state-dependent damping.}
-The effective damping can change sign across a fixed non-convex landscape.
+\vspace{1mm}
+\figureplaceholder{15.5cm}{FIG. 1 --- event-locked cortical response\\[1mm]
+\small redesigned cortical activation + representative transient trajectories}
 \end{block}
 
-\begin{block}{The barrier sets the onset}
+\begin{block}{Finite-relaxation transport on a graph}
 \justifying
 
-Let $\theta_b$ denote the barrier saddle. The stable basin boundary changes side relative to the conservative separatrix when
+Standard graph diffusion assumes that flux responds instantaneously to a gradient. Instead, let edge fluxes relax over a finite timescale:
+\begin{bigequation}
+\dot{\mathbf{x}}+\operatorname{div}\mathbf{J}=0,
+\qquad
+\tau\dot{\mathbf{J}}+\mathbf{J}
+=-\operatorname{grad}\mathbf{x}.
+\end{bigequation}
+
+Eliminating the edge flux gives the graph telegrapher equation
 \begin{bigequation}
 \tcbhighmath[colframe=blockshade,colback=blockshade,boxrule=0pt,arc=2mm]{
-\rho^*=
-\frac{1}{g'(\theta_b)}
-=
-\frac{1}{1-U''(\theta_b)}
+\tau\ddot{\mathbf{x}}+\dot{\mathbf{x}}+\mathbf{L}\mathbf{x}=0
 }
 \end{bigequation}
-whenever $g'$ reaches its maximum at the barrier.
 
-For the single-barrier Helmholtz landscape,
-\[
-U(\theta)=\frac{\theta^2}{2}-\frac{\theta^3}{3},
-\qquad
-\rho^*=\frac12.
-\]
-
-\begin{center}
-\includegraphics[width=0.88\linewidth]{figures/threshold.pdf}
-\end{center}
-
-\textbf{A local property of the barrier fixes the first loss of global basin volume.}
+\textbf{The temporal bottleneck is placed in transport along pathways, not in delayed node states.}
 \end{block}
 
-\begin{block}{A global measure of erosion}
+\begin{block}{Topology sets the dynamical regime}
 \justifying
 
-Let $\Omega_0$ be the conservative reference basin and $B_\rho$ the finite-response basin. The retained fraction is
+For a Laplacian mode $\mathbf{L}\mathbf{v}_k=\lambda_k\mathbf{v}_k$,
+\[
+\tau\ddot z_k+\dot z_k+\lambda_k z_k=0.
+\]
+Mode $k$ becomes underdamped when $4\tau\lambda_k>1$. The first nontrivial transition is therefore
 \begin{bigequation}
-C(\rho)=
-\frac{\mu(B_\rho\cap\Omega_0)}
-{\mu(\Omega_0)}.
+\tau_c=\frac{1}{4\lambda_2}.
 \end{bigequation}
 
-$C(\rho)=1$ means the reference perturbation set is fully retained; $C(\rho)<1$ measures the fraction lost through basin erosion.
+\figureplaceholder{14.5cm}{FIG. 2 --- overdamped $\rightarrow$ underdamped\\[1mm]
+\small redesigned monotone vs oscillatory network relaxation}
 \end{block}
 
 \end{column}
@@ -181,42 +174,41 @@ $C(\rho)=1$ means the reference perturbation set is fully retained; $C(\rho)<1$ 
 
 \vspace{-6mm}
 
-\begin{block}{The basin moves before the fixed point destabilizes}
-
-\begin{center}
-\includegraphics[width=0.98\linewidth]{figures/basin_geometry.pdf}
-\end{center}
-
-The dashed curve is the instantaneous-response boundary; the solid curve is the stable manifold of the barrier at finite response. For $\rho>\rho^*$ it moves into the reference basin and removes recoverable perturbations.
-
-\begin{center}
-\textbf{The attractor is still locally stable, but its nonlinear resilience is already smaller.}
-\end{center}
-
-\end{block}
-
-\begin{block}{The mechanism extends beyond one landscape}
+\begin{block}{Topology or geometry?}
 \justifying
 
-The same finite-response structure appears exactly in bistable FitzHugh--Nagumo activator--recovery dynamics. With
-\begin{bigequation}
-\rho=\frac{\alpha}{b^2\beta},
+Structural connectivity is strongly constrained by spatial embedding. We therefore compare the empirical structural connectome against two spatial graph controls under the \emph{same} dynamical model:
+\[
+\text{Structural}
 \qquad
-\rho^*=\frac{1}{b}.
-\end{bigequation}
+\text{EDR}
+\qquad
+\text{Geometric}.
+\]
+
+\figureplaceholder{22.0cm}{FIG. 6 --- network architectures and graph modes\\[1mm]
+\small redesigned structural / EDR / geometric comparison}
+\end{block}
+
+\begin{block}{The structural connectome wins at low frequencies}
+\justifying
+
+Across the four motor conditions, the empirical structural connectome gives the best trajectory-level fits. Its advantage over spatial nulls is strongest in fast-delta and theta, smaller in alpha, and weak in beta and gamma.
+
+\vspace{1mm}
+\figureplaceholder{25.0cm}{FIG. 4/5 --- topology advantage across frequency\\[1mm]
+\small compact poster version of fit quality / paired $\Delta R^2$}
 
 \begin{center}
-\includegraphics[width=0.90\linewidth]{figures/fhn.pdf}
+\textbf{Slow post-event components are the regime in which large-scale structural topology is most visible.}
 \end{center}
-
-The basin boundary erodes while the outer equilibria remain locally stable.
 \end{block}
 
 \begin{block}{Take-away}
 \begin{itemize}
-    \item Finite response generates state-dependent dissipation without external time-dependent forcing.
-    \item Basin erosion can precede any local loss of stability.
-    \item In the barrier-controlled case, local barrier geometry predicts the exact erosion threshold.
+    \item Finite edge-flux relaxation turns graph diffusion into a hyperbolic transient dynamics.
+    \item The Laplacian spectrum sets the overdamped--underdamped threshold through $\lambda_2$.
+    \item In MEG data, structural topology explains low-frequency event-locked trajectories better than geometry-based graph nulls.
 \end{itemize}
 \end{block}
 
