@@ -22,7 +22,7 @@
 
 \usepackage[skins,theorems]{tcolorbox}
 \tcbset{highlight math style={enhanced,
-  colframe=boxbg,colback=white,arc=0pt,boxrule=1pt}}
+  colframe=blockshade,colback=blockshade,arc=2mm,boxrule=0pt}}
 
 \usepackage{unicode-math}
 \defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX}
@@ -71,10 +71,10 @@
 \addtobeamertemplate{headline}{}
 {
     \begin{tikzpicture}[remember picture,overlay]
-      \node [anchor=north west, inner sep=3cm] at ([xshift=0cm,yshift=1cm]current page.north west)
-      {\includegraphics[height=7.0cm]{logos/urv.png}};
-      \node [anchor=north east, inner sep=3cm] at ([xshift=0cm,yshift=1cm]current page.north east)
-      {\includegraphics[height=7.0cm]{logos/estrella.png}};
+      \node [anchor=north west, inner sep=0pt] at ([xshift=2.2cm,yshift=-1.4cm]current page.north west)
+      {\includegraphics[height=5.8cm]{logos/urv.png}};
+      \node [anchor=north east, inner sep=0pt] at ([xshift=-2.2cm,yshift=-1.25cm]current page.north east)
+      {\includegraphics[height=6.0cm]{logos/estrella.png}};
     \end{tikzpicture}
 }
 
@@ -133,7 +133,7 @@ The effective damping can change sign across a fixed non-convex landscape.
 
 Let $\theta_b$ denote the barrier saddle. The stable basin boundary changes side relative to the conservative separatrix when
 \begin{bigequation}
-\tcbhighmath[boxrule=3pt,colframe=boxbg,colback=white]{
+\tcbhighmath[colframe=blockshade,colback=blockshade,boxrule=0pt,arc=2mm]{
 \rho^*=
 \frac{1}{g'(\theta_b)}
 =
