@@ -1,168 +1,227 @@
 \documentclass[final]{beamer}
 
+% ====================
+% Packages -- kept from the previous poster setup
+% ====================
+
 \usepackage[T1]{fontenc}
-\usepackage[size=custom,width=84.1,height=118.9,scale=1.16]{beamerposter}
+\usepackage{lmodern}
+\usepackage[size=custom,width=84.1,height=118.9,scale=1.0]{beamerposter}
 \usetheme{gemini}
 \usecolortheme{uchicago}
 \usepackage{graphicx}
+\usepackage{booktabs}
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta,positioning}
-\usepackage{amsmath,amssymb}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\usepackage[cm]{sfmath}
+\usepackage[font=small,labelfont=bf,
+   justification=justified,
+   format=plain]{caption}
+
 \usepackage[skins,theorems]{tcolorbox}
+\tcbset{highlight math style={enhanced,
+  colframe=boxbg,colback=white,arc=0pt,boxrule=1pt}}
+
 \usepackage{unicode-math}
 \defaultfontfeatures{Scale=MatchLowercase,Ligatures=TeX}
-\setmainfont{Lato}[Scale=0.92]
-\setmathfont{Latin Modern Math}
-\usepackage[font=normalsize,labelfont=bf,justification=raggedright]{caption}
+\setmainfont{TeX Gyre Heros}[Scale=0.8]
+\setmathfont{Fira Math}
+
+\usepackage{eucal}
+\usepackage{amsmath}
+\usepackage{dsfont}
+
+\NewEnviron{bigequation}{%
+\begin{equation*}
+\scalebox{1.2}{$\BODY$}
+\end{equation*}
+}
+
+% ====================
+% Lengths -- same proportions as the previous posters
+% ====================
 
 \newlength{\sepwidth}
 \newlength{\colwidth}
-\setlength{\sepwidth}{0.03\paperwidth}
-\setlength{\colwidth}{0.455\paperwidth}
+\setlength{\sepwidth}{0.033\paperwidth}
+\setlength{\colwidth}{0.45\paperwidth}
+
 \newcommand{\separatorcolumn}{\begin{column}{\sepwidth}\end{column}}
 
+% ====================
+% Title
+% ====================
+
 \title{Basin erosion before instability}
-\author{Llu\'is Torres-Hugas$^{1}$ \and Ivan Kryven$^{2}$ \and Christian Bick$^{3}$}
-\institute{$^{1}$Universitat Rovira i Virgili \qquad $^{2}$Utrecht University \qquad $^{3}$Vrije Universiteit Amsterdam}
-\footercontent{FisEs'26 -- Tarragona, 14--16 October 2026 \hfill lluis.torres@urv.cat}
+
+\author{Llu\'is Torres-Hugas \and Ivan Kryven \and Christian Bick}
+
+\institute[shortinst]{Universitat Rovira i Virgili \qquad Utrecht University \qquad Vrije Universiteit Amsterdam}
+
+\footercontent{FisEs'26, Tarragona, 14--16 October 2026 \hfill lluis.torres@urv.cat}
+
+% ====================
+% Body
+% ====================
 
 \begin{document}
 
-\addtobeamertemplate{headline}{}{
-  \begin{tikzpicture}[remember picture,overlay]
-    \IfFileExists{logos/urv.png}{
-      \node[anchor=north west,inner sep=1.25cm] at ([xshift=0.2cm,yshift=-0.25cm]current page.north west)
-        {\includegraphics[height=4.7cm]{logos/urv.png}};
-    }{}
-    \IfFileExists{logos/estrella.png}{
-      \node[anchor=north east,inner sep=1.15cm] at ([xshift=-0.1cm,yshift=-0.15cm]current page.north east)
-        {\includegraphics[height=5.8cm]{logos/estrella.png}};
-    }{}
-  \end{tikzpicture}
+\addtobeamertemplate{headline}{}
+{
+    \begin{tikzpicture}[remember picture,overlay]
+      \node [anchor=north west, inner sep=3cm] at ([xshift=0cm,yshift=1cm]current page.north west)
+      {\includegraphics[height=7.0cm]{logos/urv.png}};
+      \node [anchor=north east, inner sep=3cm] at ([xshift=0cm,yshift=1cm]current page.north east)
+      {\includegraphics[height=7.0cm]{logos/estrella.png}};
+    \end{tikzpicture}
 }
 
 \begin{frame}[t]
 
 \begin{columns}[t]
-\separatorcolumn
-\begin{column}{0.94\paperwidth}
-\begin{alertblock}{}
-\centering
-{\LARGE\bfseries Finite response can erode a basin before the recovered state loses local stability.}
-\end{alertblock}
+\begin{column}{0.93\paperwidth}
 \end{column}
-\separatorcolumn
 \end{columns}
-
-\vspace{0.8cm}
 
 \begin{columns}[t]
 \separatorcolumn
 
+% ====================
+% Left column
+% ====================
+
 \begin{column}{\colwidth}
 
-\begin{block}{Mechanism}
-\begin{columns}[T,totalwidth=\linewidth]
-\begin{column}{0.38\linewidth}
-\includegraphics[width=\linewidth]{figures/landscape.pdf}
-\end{column}
-\begin{column}{0.58\linewidth}
-A recovery coordinate $\theta$ evolves on a landscape $U(\theta)$, but the responding state $x$ relaxes only at finite rate:
-\[
-\dot\theta=\eta[g(\theta)-x],\qquad
-\dot x=\gamma(\theta-x),\qquad \rho=\eta/\gamma.
-\]
-Eliminating $x$ gives
-\[
-\ddot\theta+[1-\rho+\rho U''(\theta)]\dot\theta+\rho U'(\theta)=0.
-\]
-\textbf{Finite response creates an effective damping that depends on position in the landscape.}
-\end{column}
-\end{columns}
+\vspace{-10mm}
 
-\vspace{0.6cm}
+\begin{alertblock}{HIGHLIGHT}
 \centering
-\begin{tikzpicture}[node distance=1.0cm and 1.0cm,>=Latex,every node/.style={align=center,font=\large}]
-\node[fill=accentbg,rounded corners=2pt,inner sep=6pt] (a) {gradient\\recovery};
-\node[fill=accentbg,rounded corners=2pt,inner sep=6pt,right=of a] (b) {finite\\response};
-\node[fill=accentbg,rounded corners=2pt,inner sep=6pt,right=of b] (c) {negative damping\\near the barrier};
-\node[fill=accentbg,rounded corners=2pt,inner sep=6pt,right=of c] (d) {basin\\erosion};
-\draw[->,very thick,color=accent] (a)--(b);
-\draw[->,very thick,color=accent] (b)--(c);
-\draw[->,very thick,color=accent] (c)--(d);
-\end{tikzpicture}
+\textbf{Finite response can erode a basin of attraction while the recovered state remains locally stable.}
+\end{alertblock}
+
+\begin{block}{Finite response changes the recovery dynamics}
+\justifying
+
+A recovery coordinate $\theta$ evolves on a landscape $U(\theta)$, while a responding state $x$ relaxes only at finite rate,
+\begin{bigequation}
+\dot\theta=\eta[g(\theta)-x],
+\qquad
+\dot x=\gamma(\theta-x),
+\qquad
+\rho=\frac{\eta}{\gamma}.
+\end{bigequation}
+
+Eliminating $x$ gives
+\begin{bigequation}
+\ddot\theta+
+[1-\rho+\rho U''(\theta)]\dot\theta
++\rho U'(\theta)=0.
+\end{bigequation}
+
+\begin{center}
+\includegraphics[width=0.72\linewidth]{figures/landscape.pdf}
+\end{center}
+
+\textbf{Finite response turns gradient recovery into an inertial system with state-dependent damping.}
+The effective damping can change sign across a fixed non-convex landscape.
 \end{block}
 
-\begin{block}{Onset of erosion}
-For a barrier saddle $\theta_b$, the first loss of the conservative safe region occurs when the stable basin boundary changes side at the barrier. If $g'$ is maximal there,
-\begin{tcolorbox}[colback=accentbg,colframe=accent,boxrule=0pt,arc=1.5mm]
-\centering
-{\LARGE
-\[
-\rho^*=\frac{1}{g'(\theta_b)}
-      =\frac{1}{1-U''(\theta_b)}.
-\]}
-\end{tcolorbox}
+\begin{block}{The barrier sets the onset}
+\justifying
 
-For the single-barrier Helmholtz landscape
+Let $\theta_b$ denote the barrier saddle. The stable basin boundary changes side relative to the conservative separatrix when
+\begin{bigequation}
+\tcbhighmath[boxrule=3pt,colframe=boxbg,colback=white]{
+\rho^*=
+\frac{1}{g'(\theta_b)}
+=
+\frac{1}{1-U''(\theta_b)}
+}
+\end{bigequation}
+whenever $g'$ reaches its maximum at the barrier.
+
+For the single-barrier Helmholtz landscape,
 \[
 U(\theta)=\frac{\theta^2}{2}-\frac{\theta^3}{3},
-\qquad \rho^*=\frac12.
+\qquad
+\rho^*=\frac12.
 \]
 
 \begin{center}
-\includegraphics[width=0.84\linewidth]{figures/threshold.pdf}
+\includegraphics[width=0.88\linewidth]{figures/threshold.pdf}
 \end{center}
 
-\textbf{A local property of the barrier predicts the onset of global basin loss.}
+\textbf{A local property of the barrier fixes the first loss of global basin volume.}
 \end{block}
 
-\begin{block}{Global robustness}
-Let $\Omega_0$ be the conservative reference basin and $B_\rho$ the finite-response basin. Define
-\[
-C(\rho)=\frac{\mu(B_\rho\cap\Omega_0)}{\mu(\Omega_0)}.
-\]
-$C=1$ means the prescribed perturbation set is fully retained; $C<1$ measures erosion. The stable-manifold displacement links the local barrier mechanism to this global basin-volume loss.
+\begin{block}{A global measure of erosion}
+\justifying
+
+Let $\Omega_0$ be the conservative reference basin and $B_\rho$ the finite-response basin. The retained fraction is
+\begin{bigequation}
+C(\rho)=
+\frac{\mu(B_\rho\cap\Omega_0)}
+{\mu(\Omega_0)}.
+\end{bigequation}
+
+$C(\rho)=1$ means the reference perturbation set is fully retained; $C(\rho)<1$ measures the fraction lost through basin erosion.
+\end{block}
+
+\end{column}
+
+\separatorcolumn
+
+% ====================
+% Right column
+% ====================
+
+\begin{column}{\colwidth}
+
+\vspace{-6mm}
+
+\begin{block}{The basin moves before the fixed point destabilizes}
+
+\begin{center}
+\includegraphics[width=0.98\linewidth]{figures/basin_geometry.pdf}
+\end{center}
+
+The dashed curve is the instantaneous-response boundary; the solid curve is the stable manifold of the barrier at finite response. For $\rho>\rho^*$ it moves into the reference basin and removes recoverable perturbations.
+
+\begin{center}
+\textbf{The attractor is still locally stable, but its nonlinear resilience is already smaller.}
+\end{center}
+
+\end{block}
+
+\begin{block}{The mechanism extends beyond one landscape}
+\justifying
+
+The same finite-response structure appears exactly in bistable FitzHugh--Nagumo activator--recovery dynamics. With
+\begin{bigequation}
+\rho=\frac{\alpha}{b^2\beta},
+\qquad
+\rho^*=\frac{1}{b}.
+\end{bigequation}
+
+\begin{center}
+\includegraphics[width=0.90\linewidth]{figures/fhn.pdf}
+\end{center}
+
+The basin boundary erodes while the outer equilibria remain locally stable.
 \end{block}
 
 \begin{block}{Take-away}
 \begin{itemize}
-\item Basin erosion can start before any local loss of stability of the recovered state.
-\item In the barrier-controlled case, the onset is fixed exactly by the local barrier geometry.
-\item The mechanism extends to activator--recovery systems such as FitzHugh--Nagumo.
+    \item Finite response generates state-dependent dissipation without external time-dependent forcing.
+    \item Basin erosion can precede any local loss of stability.
+    \item In the barrier-controlled case, local barrier geometry predicts the exact erosion threshold.
 \end{itemize}
 \end{block}
 
 \end{column}
 
-\separatorcolumn
-
-\begin{column}{\colwidth}
-
-\begin{block}{Basin geometry}
-\begin{center}
-\includegraphics[width=0.98\linewidth]{figures/basin_geometry.pdf}
-\end{center}
-
-The dashed curve is the instantaneous-response boundary. The solid curve is the stable manifold of the barrier for finite response. At $\rho>\rho^*$ it enters the reference basin and removes a finite set of recoverable perturbations.
-
-\vspace{0.4cm}
-\centering
-{\Large\bfseries The attractor is still locally stable, but the nonlinear resilience is already smaller.}
-\end{block}
-
-\begin{block}{FitzHugh--Nagumo realization}
-The same finite-response structure appears exactly in bistable FitzHugh--Nagumo activator--recovery dynamics. With
-\[
-\rho=\frac{\alpha}{b^2\beta},
-\qquad \rho^*=\frac{1}{b}.
-\]
-\begin{center}
-\includegraphics[width=0.84\linewidth]{figures/fhn.pdf}
-\end{center}
-\end{block}
-
-\end{column}
 \separatorcolumn
 \end{columns}
 
